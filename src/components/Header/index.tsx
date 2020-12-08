@@ -1,6 +1,7 @@
 import React from 'react'
 import Grid from '@material-ui/core/Grid'
-import Input from '@material-ui/core/Input'
+import IconButton from '@material-ui/core/IconButton'
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
 
 import Menu from '../Menu'
 
@@ -24,12 +25,9 @@ const Header = () => {
       </Grid>
       <Grid item xs={4}>
         <Grid container justify="flex-end" alignItems="center">
-          <form className={classes.search} noValidate autoComplete="off">
-            <Input
-              placeholder="Search"
-              inputProps={{ 'aria-label': 'description' }}
-            />
-          </form>
+          <IconButton color="secondary" aria-label="View shopping cart">
+            <ShoppingCartIcon />
+          </IconButton>
         </Grid>
       </Grid>
     </Grid>
