@@ -1,58 +1,63 @@
 import React from 'react'
 import Grid from '@material-ui/core/Grid'
+import Button from '@material-ui/core/Button'
+
+import { Product } from '../../../types/Product'
+import useProductsLoader from '../../../api/useProductsLoader'
+
+import useStyles from './styles'
 
 const FeaturedSection = () => {
-  const list = [
-    {
-      img: 'https://via.placeholder.com/925x693?text=925x693+Featured+IMG',
-      title: 'GIFTS FOR HER',
-      description: `For the lovely Her's. The best of our newest arrivals, selected just for you.`,
-    },
-    {
-      img: 'https://via.placeholder.com/464x589?text=464x589+Featured+IMG',
-      title: 'GIFTS FOR HIM',
-      description: `Play it cool with our curated summer essentials for all the men in your world.`,
-    },
-    {
-      img: 'https://via.placeholder.com/464x589?text=464x589+Featured+IMG',
-      title: 'GIFTS FOR DAD',
-      description: `Play it cool with our curated summer essentials for all the men in your world.`,
-    },
-    {
-      img: 'https://via.placeholder.com/925x693?text=925x693+Featured+IMG',
-      title: 'GIFTS FOR MUM',
-      description: `For the lovely Her's. The best of our newest arrivals, selected just for you.`,
-    },
-  ]
+  const classes = useStyles()
+
+  const products = useProductsLoader()
+  let count: number = 1
 
   return (
-    <Grid container>
-      {list.map((elem, index) => {
+    <Grid container className={classes.productsSection} spacing={6}>
+      {(products as Product[]).map((prod) => {
         let size: 8 | 4 | 12 = 8
 
-        if ((index + 1) % 2 === 0) {
+        if (count % 2 === 0) {
           size = 4
         }
 
-        if ((index + 1) % 3 === 0) {
+        if (count % 3 === 0) {
           size = 4
         }
 
-        if ((index + 1) % 4 === 0) {
+        if (count % 4 === 0) {
           size = 8
+          count = 0
         }
 
-        if (window.innerWidth <= 950) {
+        count++
+
+        if (window.innerWidth <= 768) {
           size = 12
         }
 
+        let prodDescription: string = prod.description
+
+        if (size === 4) {
+          prodDescription = `${prodDescription.substring(0, 80)}...`
+        }
+
         return (
-          <Grid key={`featured-el-${index}`} item xs={size}>
-            <figure>
-              <img src={elem.img} alt={elem.title} width="100%" />
-              <h3>{elem.title}</h3>
-              <p>{elem.description}</p>
-            </figure>
+          <Grid key={`featured-el-${prod.id}`} item xs={size}>
+            <div className="product">
+              <figure>
+                <img src={prod.image} alt={prod.description} width="100%" />
+              </figure>
+              <h3>{prod.title}</h3>
+              <p>{prodDescription}</p>
+              <p>
+                <small>€ {prod.price}</small>
+              </p>
+              <Button variant="contained" color="secondary">
+                Add to Basket
+              </Button>
+            </div>
           </Grid>
         )
       })}
