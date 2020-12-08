@@ -3,6 +3,7 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 
 import Routes from '../Routes'
 import Header from '../Header'
+import Footer from '../Footer'
 
 const Layout = () => {
   return (
@@ -12,6 +13,7 @@ const Layout = () => {
       <main>
         <Routes></Routes>
       </main>
+      <Footer />
     </>
   )
 }
