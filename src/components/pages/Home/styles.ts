@@ -19,6 +19,9 @@ const useStyles = makeStyles((theme: Theme) =>
           objectFit: 'contain',
         },
       },
+      '& button': {
+        color: '#fff',
+      },
     },
   })
 )
