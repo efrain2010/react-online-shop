@@ -18,7 +18,6 @@ const ProductsSection = (props: {
   const classes = useStyles()
   const products = useProductsLoader()
   let count: number = 1
-  console.log(props.products)
 
   return (
     <Grid container className={classes.productsSection} spacing={6}>
