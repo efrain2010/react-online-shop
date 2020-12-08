@@ -26,5 +26,8 @@
   },
   "include": [
     "src"
+  ],
+  "types": [
+    "webpack-env"
   ]
 }
