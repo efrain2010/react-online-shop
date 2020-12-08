@@ -4,7 +4,7 @@ import Container from '@material-ui/core/Container'
 import Grid from '@material-ui/core/Grid'
 
 import HeroSection from './HeroSection'
-import FeaturedSection from './FeaturedSection'
+import ProductsSection from './ProductsSection'
 
 const Home = () => {
   return (
@@ -15,7 +15,7 @@ const Home = () => {
         </Grid>
       </Grid>
       <Container maxWidth="xl">
-        <FeaturedSection />
+        <ProductsSection />
       </Container>
     </>
   )
