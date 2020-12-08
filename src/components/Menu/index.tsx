@@ -3,41 +3,18 @@ import { NavLink } from 'react-router-dom'
 
 import useStyles from './styles'
 
+import { productCategories } from '../../config/constants'
+
 const Menu = () => {
-  const useStyleClasses = useStyles()
-
-  const classes = [useStyleClasses.root, 'inline-list']
-
-  const links = [
-    {
-      to: '/',
-      text: 'Home',
-    },
-    {
-      to: 'category/women',
-      text: 'Women',
-    },
-    {
-      to: 'category/men',
-      text: 'Men',
-    },
-    {
-      to: 'category/the-gift-shop',
-      text: 'The Gift Shop',
-    },
-    {
-      to: 'category/monogram',
-      text: 'Monogram',
-    },
-  ]
+  const classes = useStyles()
 
   return (
-    <nav className={classes.join(' ')}>
+    <nav className={[classes.root, 'inline-list'].join(' ')}>
       <ul>
-        {links.map((elem, index) => (
-          <li key={`menu-option-${index}`}>
-            <NavLink activeClassName="active" to={elem.to}>
-              {elem.text}
+        {productCategories.map((elem) => (
+          <li key={elem.id}>
+            <NavLink activeClassName="active" to={elem.slug}>
+              {elem.name}
             </NavLink>
           </li>
         ))}

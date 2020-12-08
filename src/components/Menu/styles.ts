@@ -4,8 +4,11 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       paddingTop: 6,
-      '& .active': {
-        color: 'red',
+      '& a': {
+        textTransform: 'capitalize',
+        '& .active': {
+          color: 'red',
+        },
       },
     },
   })
