@@ -1,6 +1,25 @@
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
+import {
+  createMuiTheme,
+  makeStyles,
+  createStyles,
+  Theme,
+} from '@material-ui/core/styles'
+
+import blueGrey from '@material-ui/core/colors/blueGrey'
+import orange from '@material-ui/core/colors/orange'
 
 const textColor = '#1c1c1c'
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: blueGrey[50],
+    },
+    secondary: {
+      main: orange[500],
+    },
+  },
+})
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -40,4 +59,4 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-export default useStyles
+export { theme, useStyles }
