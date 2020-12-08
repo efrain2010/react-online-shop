@@ -34,8 +34,8 @@ const Menu = () => {
   return (
     <nav className={classes.join(' ')}>
       <ul>
-        {links.map((elem) => (
-          <li>
+        {links.map((elem, index) => (
+          <li key={`menu-option-${index}`}>
             <NavLink activeClassName="active" to={elem.to}>
               {elem.text}
             </NavLink>
