@@ -7,7 +7,7 @@ import useProductsLoader from '../../../api/useProductsLoader'
 
 import useStyles from './styles'
 
-const FeaturedSection = () => {
+const ProductsSection = () => {
   const classes = useStyles()
 
   const products = useProductsLoader()
@@ -65,4 +65,4 @@ const FeaturedSection = () => {
   )
 }
 
-export default FeaturedSection
+export default ProductsSection
