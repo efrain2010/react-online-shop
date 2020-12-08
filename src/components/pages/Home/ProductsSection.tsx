@@ -1,17 +1,24 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
 
 import { Product } from '../../../types/Product'
+import { ReducerProduct } from '../../../types/ReducerProduct'
 import useProductsLoader from '../../../api/useProductsLoader'
+
+import * as actionTypes from '../../../store/Actions'
 
 import useStyles from './styles'
 
-const ProductsSection = () => {
+const ProductsSection = (props: {
+  products: Product[]
+  onAddProduct: (product: Product) => ReducerProduct
+}) => {
   const classes = useStyles()
-
   const products = useProductsLoader()
   let count: number = 1
+  console.log(props.products)
 
   return (
     <Grid container className={classes.productsSection} spacing={6}>
@@ -54,7 +61,11 @@ const ProductsSection = () => {
               <p>
                 <small>€ {prod.price}</small>
               </p>
-              <Button variant="contained" color="secondary">
+              <Button
+                onClick={() => props.onAddProduct(prod)}
+                variant="contained"
+                color="secondary"
+              >
                 Add to Basket
               </Button>
             </div>
@@ -65,4 +76,19 @@ const ProductsSection = () => {
   )
 }
 
-export default ProductsSection
+const mapStateToProps = (state: ReducerProduct) => {
+  return {
+    products: state.products,
+  }
+}
+
+const mapDispatchToProps = (
+  dispatch: (arg0: { type: string; product: Product }) => any
+) => {
+  return {
+    onAddProduct: (product: Product) =>
+      dispatch({ type: actionTypes.ADD_TO_SHOPPING_CART, product: product }),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductsSection)
