@@ -1,12 +1,14 @@
-import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 
-const useStyles = makeStyles({
-  root: {
-    paddingTop: 6,
-    '& .active': {
-      color: 'red',
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      paddingTop: 6,
+      '& .active': {
+        color: 'red',
+      },
     },
-  },
-})
+  })
+)
 
 export default useStyles
