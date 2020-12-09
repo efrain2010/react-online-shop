@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import * as actionTypes from '../../store/Actions'
 import Grid from '@material-ui/core/Grid'
 import IconButton from '@material-ui/core/IconButton'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
@@ -8,6 +7,7 @@ import Drawer from '@material-ui/core/Drawer'
 import DeleteIcon from '@material-ui/icons/Delete'
 
 import { ReducerProduct } from '../../types/ReducerProduct'
+import * as actionTypes from '../../store/Actions'
 
 import Menu from '../Menu'
 
@@ -18,7 +18,6 @@ import { Product } from '../../types/Product'
 const Header = (props: any) => {
   const [drawerState, setDrawerState] = useState(false)
   const classes = useStyles()
-  console.log(props.products)
 
   const drawerTogglehandler = (action: boolean) => {
     setDrawerState(action)
@@ -59,30 +58,38 @@ const Header = (props: any) => {
         <p className="title">Your Items</p>
         <nav className="products-list">
           <ul>
-            {(props.products as Product[]).map((product) => {
-              return (
-                <li key={`cart-list-${product.id}`}>
-                  <Grid container>
-                    <Grid item xs={3}>
-                      <figure>
-                        <img src={product.image} alt={product.title} />
-                      </figure>
+            {Object.keys(props.products).length > 0 ? (
+              Object.keys(props.products as Product[]).map((key) => {
+                const product = props.products[key]
+                return (
+                  <li key={`cart-list-${product.id}`}>
+                    <Grid container>
+                      <Grid item xs={3}>
+                        <figure>
+                          <img
+                            src={product.data.image}
+                            alt={product.data.title}
+                          />
+                        </figure>
+                      </Grid>
+                      <Grid item xs={7}>
+                        {product.data.title} X {product.quantity}
+                      </Grid>
+                      <Grid item xs={2}>
+                        <IconButton
+                          onClick={() => props.onRemove(product.id)}
+                          aria-label="delete"
+                        >
+                          <DeleteIcon />
+                        </IconButton>
+                      </Grid>
                     </Grid>
-                    <Grid item xs={7}>
-                      {product.title}
-                    </Grid>
-                    <Grid item xs={2}>
-                      <IconButton
-                        onClick={() => props.onRemove(product.id)}
-                        aria-label="delete"
-                      >
-                        <DeleteIcon />
-                      </IconButton>
-                    </Grid>
-                  </Grid>
-                </li>
-              )
-            })}
+                  </li>
+                )
+              })
+            ) : (
+              <p className="text-center">You have not added a product</p>
+            )}
           </ul>
         </nav>
       </Drawer>

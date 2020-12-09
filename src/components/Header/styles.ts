@@ -39,8 +39,11 @@ const useStyles = makeStyles((theme: Theme) =>
         fontWeight: 900,
       },
       '& .products-list': {
+        borderTop: '1px solid #ddd',
+        paddingTop: theme.spacing(2),
         width: 300,
         '& ul': {
+          margin: 0,
           padding: 0,
           '& li': {
             listStyle: 'none',

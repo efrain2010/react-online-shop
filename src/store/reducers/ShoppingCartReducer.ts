@@ -3,7 +3,7 @@ import { Product } from '../../types/Product'
 import { ReducerProduct } from '../../types/ReducerProduct'
 
 const initialState = {
-  products: [],
+  products: {},
   count: 0,
 }
 
@@ -13,23 +13,32 @@ const ShoppingCartReducer = (
 ): ReducerProduct => {
   switch (action.type) {
     case ADD_TO_SHOPPING_CART:
-      const tempProducts2: Product[] = [...state.products]
-      if (action.product) tempProducts2.push(action.product)
-      return {
-        ...state,
-        products: tempProducts2,
-        count: state.count + 1,
-      }
-    case REMOVE_FROM_SHOPPING_CART:
-      console.log('REMOVE_FROM_SHOPPING_CART', action)
       const tempState = { ...state }
-      const tempProducts = (tempState.products as Product[]).filter(
-        (product) => product.id !== action.productID
-      )
+      if (action.product) {
+        if (tempState.products[action.product.id] === undefined) {
+          tempState.count++
+          tempState.products = {
+            ...tempState.products,
+            [action.product.id]: {
+              id: action.product.id,
+              data: action.product,
+              quantity: 1,
+            },
+          }
+        } else {
+          tempState.products[action.product.id].quantity += 1
+        }
+      }
+      return tempState
+    case REMOVE_FROM_SHOPPING_CART:
+      const tempProducts = { ...state.products }
+      if (action.productID) {
+        delete tempProducts[action.productID]
+      }
       return {
         ...state,
         products: tempProducts,
-        count: state.count - 1 < 0 ? 0 : state.count - 1,
+        count: state.count - 1,
       }
     default:
       return state

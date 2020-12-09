@@ -55,6 +55,9 @@ const useStyles = makeStyles((theme: Theme) =>
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
       },
+      '.text-center': {
+        textAlign: 'center',
+      },
     },
   })
 )
